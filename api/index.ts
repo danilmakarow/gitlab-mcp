@@ -1,6 +1,33 @@
-import serverlessExpress from '@vendia/serverless-express';
+import path from 'node:path';
+
+import { register as registerTsconfigPaths } from 'tsconfig-paths';
+
+/**
+ * Register TypeScript path aliases at runtime.
+ *
+ * Locally, `nest build` rewrites `@/` imports into relative paths in the compiled
+ * output. On Vercel, `@vercel/node` compiles this file (and transitively our src/*)
+ * with plain `tsc`, which does NOT rewrite aliases — so the `@/...` strings end up
+ * in the shipped .js files and fail at require time.
+ *
+ * We hook Node's module resolution here before any downstream import runs.
+ * Paths are hard-coded so we don't need to ship `tsconfig.json` with the bundle.
+ */
+registerTsconfigPaths({
+  baseUrl: path.join(__dirname, '..'),
+  paths: {
+    '@/utils/*': ['src/common/utils/*'],
+    '@/config/*': ['src/config/*'],
+    '@/services/*': ['src/common/services/*'],
+    '@/exceptions/*': ['src/common/exceptions/*'],
+    '@/modules/*': ['src/modules/*'],
+    '@/*': ['src/*'],
+  },
+});
+
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
+import serverlessExpress from '@vendia/serverless-express';
 import type { Handler } from 'aws-lambda';
 
 import { AppModule } from '../src/app.module';
