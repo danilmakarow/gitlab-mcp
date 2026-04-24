@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { EnvironmentVariables } from '../../../config/env.config';
 import {
   BadRequestException,
   BaseException,
   InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
-} from '../../../common/exceptions/index';
-import { AppLogger } from '../../logger/app-logger';
+} from '@common/exceptions/index';
+import { EnvironmentVariables } from '@config/env.config';
+import { AppLogger } from '@modules/logger/app-logger';
+
 import { GitlabRequestOptions, HttpMethod } from '../types/request-options.type';
 
 /**

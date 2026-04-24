@@ -3,8 +3,8 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import serverlessExpress from '@vendia/serverless-express';
 import type { Handler } from 'aws-lambda';
 
-import { AppModule } from '../src/app.module';
-import { AppLogger } from '../src/modules/logger/app-logger';
+import { AppLogger } from '@modules/logger/app-logger';
+import { AppModule } from '@src/app.module';
 
 let cachedHandler: Handler | undefined;
 

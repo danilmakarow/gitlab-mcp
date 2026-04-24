@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { PipelinesService } from '../../gitlab/services/pipelines.service';
+import { PipelinesService } from '@modules/gitlab/services/pipelines.service';
+
 import {
   errorResponse,
   jsonResponse,

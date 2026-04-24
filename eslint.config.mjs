@@ -38,6 +38,9 @@ export default tseslint.config(
   },
   {
     plugins: { import: importPlugin },
+    settings: {
+      'import/internal-regex': '^@(root|src|config|common|modules)/',
+    },
     rules: {
       'import/order': [
         'warn',

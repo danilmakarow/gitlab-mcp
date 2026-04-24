@@ -1,11 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { GitlabApiService } from './gitlab-api.service';
-import {
-  GitlabJob,
-  GitlabPipeline,
-  GitlabPipelineStatus,
-} from '../types/gitlab-entities.type';
+import { GitlabJob, GitlabPipeline, GitlabPipelineStatus } from '../types/gitlab-entities.type';
 import { PaginationOptions } from '../types/request-options.type';
 import { encodeProjectId } from '../utils/encode-project-id.util';
 

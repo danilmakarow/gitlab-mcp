@@ -2,8 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GitHubOAuthProvider, McpAuthModule } from '@rekog/mcp-nest';
 
+import { EnvironmentVariables, getConfigModule } from '@config/env.config';
+
 import { AllowlistGuard } from './guards/allowlist.guard';
-import { EnvironmentVariables } from '../../config/env.config';
+
+getConfigModule();
 
 /**
  * Wires the built-in MCP OAuth authorization server using GitHub as the
