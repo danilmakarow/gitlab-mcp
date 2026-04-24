@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 import { GitlabApiService } from './gitlab-api.service';
-import { GitlabProject } from '@/modules/gitlab/types/gitlab-entities.type';
-import { PaginationOptions } from '@/modules/gitlab/types/request-options.type';
-import { encodeProjectId } from '@/modules/gitlab/utils/encode-project-id.util';
+import { GitlabProject } from '../types/gitlab-entities.type';
+import { PaginationOptions } from '../types/request-options.type';
+import { encodeProjectId } from '../utils/encode-project-id.util';
 
 export interface ListProjectsOptions extends PaginationOptions {
   search?: string;

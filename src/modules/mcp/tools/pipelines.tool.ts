@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { PipelinesService } from '@/modules/gitlab/services/pipelines.service';
+import { PipelinesService } from '../../gitlab/services/pipelines.service';
 import {
   errorResponse,
   jsonResponse,
   McpToolResponse,
   textResponse,
-} from '@/modules/mcp/utils/mcp-response.util';
+} from '../utils/mcp-response.util';
 
 const pipelineStatusSchema = z.enum([
   'created',

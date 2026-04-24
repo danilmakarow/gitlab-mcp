@@ -1,14 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'Skipping build — api/index.ts is compiled by the Node runtime'",
+  "outputDirectory": "api",
+  "installCommand": "pnpm install",
   "functions": {
     "api/index.ts": {
       "maxDuration": 60
     }
   },
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api/index"
-    }
+    { "source": "/(.*)", "destination": "/api/index" }
   ]
 }

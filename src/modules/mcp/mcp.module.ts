@@ -6,9 +6,9 @@ import { CommitsTool } from './tools/commits.tool';
 import { MergeRequestsTool } from './tools/merge-requests.tool';
 import { PipelinesTool } from './tools/pipelines.tool';
 import { ProjectsTool } from './tools/projects.tool';
-import { AuthModule } from '@/modules/auth/auth.module';
-import { AllowlistGuard } from '@/modules/auth/guards/allowlist.guard';
-import { GitlabModule } from '@/modules/gitlab/gitlab.module';
+import { AuthModule } from '../auth/auth.module';
+import { AllowlistGuard } from '../auth/guards/allowlist.guard';
+import { GitlabModule } from '../gitlab/gitlab.module';
 
 /**
  * Registers the MCP server over Streamable HTTP and guards the `/mcp` endpoint

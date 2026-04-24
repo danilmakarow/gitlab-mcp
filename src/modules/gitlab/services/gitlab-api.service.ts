@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { EnvironmentVariables } from '@/config/env.config';
+import { EnvironmentVariables } from '../../../config/env.config';
 import {
   BadRequestException,
   BaseException,
   InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
-} from '@/exceptions/index';
-import { GitlabRequestOptions, HttpMethod } from '@/modules/gitlab/types/request-options.type';
-import { AppLogger } from '@/modules/logger/app-logger';
+} from '../../../common/exceptions/index';
+import { AppLogger } from '../../logger/app-logger';
+import { GitlabRequestOptions, HttpMethod } from '../types/request-options.type';
 
 /**
  * Low-level HTTP client for the GitLab REST API.

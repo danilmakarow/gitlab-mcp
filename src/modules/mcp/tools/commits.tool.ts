@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { CommitsService } from '@/modules/gitlab/services/commits.service';
-import {
-  errorResponse,
-  jsonResponse,
-  McpToolResponse,
-} from '@/modules/mcp/utils/mcp-response.util';
+import { CommitsService } from '../../gitlab/services/commits.service';
+import { errorResponse, jsonResponse, McpToolResponse } from '../utils/mcp-response.util';
 
 const listCommitsSchema = z.object({
   projectIdOrPath: z.string().describe('Project numeric ID or full path.'),

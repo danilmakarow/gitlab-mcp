@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { BranchesService } from '@/modules/gitlab/services/branches.service';
-import {
-  errorResponse,
-  jsonResponse,
-  McpToolResponse,
-} from '@/modules/mcp/utils/mcp-response.util';
+import { BranchesService } from '../../gitlab/services/branches.service';
+import { errorResponse, jsonResponse, McpToolResponse } from '../utils/mcp-response.util';
 
 const listBranchesSchema = z.object({
   projectIdOrPath: z.string().describe('Project numeric ID or full path.'),

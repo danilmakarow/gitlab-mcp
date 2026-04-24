@@ -18,14 +18,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@/utils/*": ["./src/common/utils/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/services/*": ["./src/common/services/*"],
-      "@/exceptions/*": ["./src/common/exceptions/*"],
-      "@/modules/*": ["./src/modules/*"],
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "./"
   },
   "include": ["./src/**/*.ts", "./api/**/*.ts"]
 }

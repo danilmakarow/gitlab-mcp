@@ -5,9 +5,9 @@ import {
   GitlabJob,
   GitlabPipeline,
   GitlabPipelineStatus,
-} from '@/modules/gitlab/types/gitlab-entities.type';
-import { PaginationOptions } from '@/modules/gitlab/types/request-options.type';
-import { encodeProjectId } from '@/modules/gitlab/utils/encode-project-id.util';
+} from '../types/gitlab-entities.type';
+import { PaginationOptions } from '../types/request-options.type';
+import { encodeProjectId } from '../utils/encode-project-id.util';
 
 export interface ListPipelinesOptions extends PaginationOptions {
   status?: GitlabPipelineStatus;

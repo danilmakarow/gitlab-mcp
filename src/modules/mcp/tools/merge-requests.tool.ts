@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { MergeRequestsService } from '@/modules/gitlab/services/merge-requests.service';
-import {
-  errorResponse,
-  jsonResponse,
-  McpToolResponse,
-} from '@/modules/mcp/utils/mcp-response.util';
+import { MergeRequestsService } from '../../gitlab/services/merge-requests.service';
+import { errorResponse, jsonResponse, McpToolResponse } from '../utils/mcp-response.util';
 
 const mergeRequestStateSchema = z.enum(['opened', 'closed', 'locked', 'merged', 'all']);
 

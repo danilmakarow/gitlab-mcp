@@ -1,4 +1,4 @@
-import { BaseException } from '@/exceptions/index';
+import { BaseException } from '../../../common/exceptions/index';
 
 interface McpTextContent {
   type: 'text';

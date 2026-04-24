@@ -2,8 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import { EnvironmentVariables } from '@/config/env.config';
-import { AppLogger } from '@/modules/logger/app-logger';
+import { EnvironmentVariables } from './config/env.config';
+import { AppLogger } from './modules/logger/app-logger';
 
 /**
  * Bootstraps the NestJS HTTP app for local development.

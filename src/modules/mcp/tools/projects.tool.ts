@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 
-import { ProjectsService } from '@/modules/gitlab/services/projects.service';
-import {
-  errorResponse,
-  jsonResponse,
-  McpToolResponse,
-} from '@/modules/mcp/utils/mcp-response.util';
+import { ProjectsService } from '../../gitlab/services/projects.service';
+import { errorResponse, jsonResponse, McpToolResponse } from '../utils/mcp-response.util';
 
 const listProjectsSchema = z.object({
   search: z.string().optional().describe('Free-text search across project names.'),
