@@ -1,21 +1,23 @@
+import type { IncomingMessage, ServerResponse } from 'http';
+
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
-import serverlessExpress from '@vendia/serverless-express';
-import type { Handler } from 'aws-lambda';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from '../dist/app.module';
 import { AppLogger } from '../dist/modules/logger/app-logger';
 
-let cachedHandler: Handler | undefined;
+type NodeRequestHandler = (req: IncomingMessage, res: ServerResponse) => void;
+
+let cachedRequestHandler: NodeRequestHandler | undefined;
 
 /**
  * Bootstraps the NestJS app once per warm Vercel function instance and caches
- * the resulting express handler. Subsequent invocations reuse the same app.
+ * the underlying Express request handler. Subsequent invocations reuse it.
  */
-const getHandler = async (): Promise<Handler> => {
-  if (cachedHandler) {
-    return cachedHandler;
+const getRequestHandler = async (): Promise<NodeRequestHandler> => {
+  if (cachedRequestHandler) {
+    return cachedRequestHandler;
   }
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -26,20 +28,16 @@ const getHandler = async (): Promise<Handler> => {
 
   await app.init();
 
-  const expressApp = app.getHttpAdapter().getInstance() as Parameters<
-    typeof serverlessExpress
-  >[0]['app'];
+  cachedRequestHandler = app.getHttpAdapter().getInstance() as NodeRequestHandler;
 
-  cachedHandler = serverlessExpress({ app: expressApp });
-
-  return cachedHandler;
+  return cachedRequestHandler;
 };
 
 /**
  * Vercel Node function entry. Forwards every request to the NestJS app.
  */
-export default async (req: unknown, res: unknown): Promise<unknown> => {
-  const handler = await getHandler();
+export default async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
+  const requestHandler = await getRequestHandler();
 
-  return handler(req as Parameters<Handler>[0], res as Parameters<Handler>[1], () => undefined);
+  requestHandler(req, res);
 };
