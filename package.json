@@ -5,6 +5,13 @@
   "author": "Danil Makarov <https://t.me/dnmkr>",
   "private": true,
   "license": "UNLICENSED",
+  "_moduleAliases": {
+    "@modules/*": "./src/modules/*",
+    "@config/*": "./src/config/*",
+    "@common/*": "./src/common/*",
+    "@src/*": "./src/*",
+    "@root/*": "./*"
+  },
   "scripts": {
     "build": "nest build && tsc-alias -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
