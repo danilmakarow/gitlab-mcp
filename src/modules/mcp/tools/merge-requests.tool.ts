@@ -20,6 +20,29 @@ const listMergeRequestsSchema = z.object({
   page: z.number().int().min(1).optional(),
 });
 
+const createMergeRequestSchema = z.object({
+  projectIdOrPath: z.string().describe('Project numeric ID or full path.'),
+  sourceBranch: z.string().describe('Branch containing the changes to merge.'),
+  targetBranch: z.string().describe('Branch to merge into.'),
+  title: z.string().min(1).describe('Merge request title. Prefix with "Draft:" to open as draft.'),
+  description: z.string().optional(),
+  assigneeIds: z.array(z.number().int()).optional(),
+  reviewerIds: z.array(z.number().int()).optional(),
+  labels: z.array(z.string()).optional(),
+  targetProjectId: z
+    .number()
+    .int()
+    .optional()
+    .describe('Target project ID for cross-project MRs (forks).'),
+  milestoneId: z.number().int().optional(),
+  removeSourceBranch: z.boolean().optional(),
+  squash: z.boolean().optional(),
+  allowCollaboration: z
+    .boolean()
+    .optional()
+    .describe('Allow maintainers of the target project to push to the source branch.'),
+});
+
 const mergeRequestIdentifier = z.object({
   projectIdOrPath: z.string().describe('Project numeric ID or full path.'),
   mergeRequestIid: z
@@ -72,6 +95,26 @@ export class MergeRequestsTool {
       const items = await this.mergeRequestsService.listMergeRequests(input.projectIdOrPath, input);
 
       return jsonResponse(items);
+    } catch (error) {
+      return errorResponse(error);
+    }
+  }
+
+  @Tool({
+    name: 'gitlab_create_merge_request',
+    description:
+      'Create a new merge request from sourceBranch into targetBranch. ' +
+      'Prefix title with "Draft:" to open it as a draft. ' +
+      'Supports assignees, reviewers, labels, squash, and cross-project (fork) targets.',
+    parameters: createMergeRequestSchema,
+  })
+  async createMergeRequest(
+    input: z.infer<typeof createMergeRequestSchema>,
+  ): Promise<McpToolResponse> {
+    try {
+      const mr = await this.mergeRequestsService.createMergeRequest(input.projectIdOrPath, input);
+
+      return jsonResponse(mr);
     } catch (error) {
       return errorResponse(error);
     }

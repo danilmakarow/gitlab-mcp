@@ -20,6 +20,21 @@ export interface ListMergeRequestsOptions extends PaginationOptions {
   sort?: 'asc' | 'desc';
 }
 
+export interface CreateMergeRequestInput {
+  sourceBranch: string;
+  targetBranch: string;
+  title: string;
+  description?: string;
+  assigneeIds?: number[];
+  reviewerIds?: number[];
+  labels?: string[];
+  targetProjectId?: number;
+  milestoneId?: number;
+  removeSourceBranch?: boolean;
+  squash?: boolean;
+  allowCollaboration?: boolean;
+}
+
 export interface UpdateMergeRequestInput {
   title?: string;
   description?: string;
@@ -64,6 +79,35 @@ export class MergeRequestsService {
           sort: options?.sort ?? 'desc',
           per_page: options?.perPage ?? 20,
           page: options?.page ?? 1,
+        },
+      },
+    );
+  }
+
+  /**
+   * Creates a new merge request from sourceBranch into targetBranch.
+   */
+  createMergeRequest(
+    projectIdOrPath: string | number,
+    input: CreateMergeRequestInput,
+  ): Promise<GitlabMergeRequest> {
+    return this.api.request<GitlabMergeRequest>(
+      'POST',
+      `projects/${encodeProjectId(projectIdOrPath)}/merge_requests`,
+      {
+        body: {
+          source_branch: input.sourceBranch,
+          target_branch: input.targetBranch,
+          title: input.title,
+          description: input.description,
+          assignee_ids: input.assigneeIds,
+          reviewer_ids: input.reviewerIds,
+          labels: input.labels?.join(','),
+          target_project_id: input.targetProjectId,
+          milestone_id: input.milestoneId,
+          remove_source_branch: input.removeSourceBranch,
+          squash: input.squash,
+          allow_collaboration: input.allowCollaboration,
         },
       },
     );

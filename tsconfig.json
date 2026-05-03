@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "declaration": true,
     "removeComments": true,
@@ -18,13 +18,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "baseUrl": "./",
     "paths": {
-      "@modules/*": ["src/modules/*"],
-      "@config/*": ["src/config/*"],
-      "@common/*": ["src/common/*"],
-      "@src/*": ["src/*"],
-      "@root/*": ["*"]
+      "@modules/*": ["./src/modules/*"],
+      "@config/*": ["./src/config/*"],
+      "@common/*": ["./src/common/*"],
+      "@src/*": ["./src/*"],
+      "@root/*": ["./*"]
     }
   },
   "include": ["./src/**/*.ts", "./api/**/*.ts"]

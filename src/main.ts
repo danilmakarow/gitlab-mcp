@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 
 import { EnvironmentVariables } from '@config/env.config';
 import { AppLogger } from '@modules/logger/app-logger';
@@ -11,6 +12,8 @@ import { AppModule } from '@src/app.module';
  */
 const bootstrap = async (): Promise<void> => {
   const app = await NestFactory.create(AppModule, { logger: new AppLogger() });
+
+  app.use(cookieParser());
 
   app.enableShutdownHooks();
 

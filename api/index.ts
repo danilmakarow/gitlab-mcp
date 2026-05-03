@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import serverlessExpress from '@vendia/serverless-express';
 import type { Handler } from 'aws-lambda';
+import cookieParser from 'cookie-parser';
 
-import { AppLogger } from '@modules/logger/app-logger';
-import { AppModule } from '@src/app.module';
+import { AppModule } from '../src/app.module';
+import { AppLogger } from '../src/modules/logger/app-logger';
 
 let cachedHandler: Handler | undefined;
 
@@ -20,6 +21,8 @@ const getHandler = async (): Promise<Handler> => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: new AppLogger(),
   });
+
+  app.use(cookieParser());
 
   await app.init();
 
